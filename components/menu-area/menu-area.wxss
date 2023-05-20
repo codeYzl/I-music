@@ -1,0 +1,8 @@
+.list{
+  display: flex;
+ height: 180px; 
+}
+.list .item{
+  flex-shrink: 0;
+  width: 220rpx;
+}

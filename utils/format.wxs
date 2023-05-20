@@ -1,0 +1,28 @@
+function formatCount(count) {
+  count = Number(count)
+  if(count >= 1000000000){
+    return (count / 1000000000).toFixed(1) + "亿"
+  }else if(count >= 10000){
+    return (count/10000).toFixed(1) +"万"
+  }else{
+    return count
+  }
+}
+//2 -> 02
+//24 -> 24
+function padLeft(time) {
+  time = time + ""
+  return ("00"+time).slice(time.length)//只传一个参数的时候是返回的从参数位置元素到最后一个元素
+}
+// 对time进行格式化
+// 100 -> 01:40
+function formatTime(time) {
+  time /= 1000
+  var minute = Math.floor(time / 60)
+  var second = Math.floor(time) % 60
+  return padLeft(minute) + ":" + padLeft(second)
+}
+module.exports = {
+  formatCount: formatCount,
+  formatTime: formatTime
+}

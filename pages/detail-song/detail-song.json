@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "ranking-item" : "/components/ranking-item/ranking-item",
+    "song-item-v1" : "/components/song-item-v1/song-item-v1",
+    "menu-header" : "/components/menu-header/menu-header"
+  }
+}

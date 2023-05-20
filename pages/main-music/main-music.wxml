@@ -1,0 +1,49 @@
+<van-search
+  value="{{ searchValue }}"
+  shape="round"
+  placeholder="请输入搜索关键词"
+  bind:focus="onclickSearch" 
+/>
+<swiper 
+  class ="banner"
+  circular 
+  autoplay="true"
+ 
+  indicator-dots
+  style="height: {{swiperimage}}px;"
+> 
+  <block   wx:for="{{banners}}" wx:key="targetId">
+    <swiper-item class="item">
+      <image class="banner-image" src="{{item.imageUrl}}" mode ="widthFix"
+      bindload="onimageload"
+      ></image>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view> 
+<area-header 
+  title="推荐歌曲"  
+  bind:moreclick = "onRecommendClick"
+/>
+<view class="recommend-list">
+  <block wx:for="{{ recommendSongs}}" wx:key="id"> 
+    <song-item itemData="{{item}}" />
+  </block>
+</view>
+</view>
+<!--热门歌单-->
+
+<menu-area title="推荐歌单" menuList="{{recommendMenu}}"/>
+
+<!--巅峰榜-->
+
+<view class="ranking">
+  <area-header title="巅峰榜" hasMore = "false"/>
+  <view class="rank-list">
+    <block wx:for="{{rankingInfos}}" wx:key="id">
+         <!--将类型传递给组件-->
+      <ranking-item itemData="{{item}}" key="{{index}}"/>
+    </block>
+  </view>
+</view>

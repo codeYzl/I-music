@@ -1,0 +1,16 @@
+/* pages/main-music/main-music.wxss */
+page{
+  box-sizing: border-box;/*防止偏出*/
+  padding: 0 24px;
+  background-color: #fafafa;
+}
+.banner{
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+/* 轮播图样式   小程序
+页面宽度375 图片宽度320*/
+.banner .item .image{
+  width: 100%;
+}
+/* 歌单样式 */

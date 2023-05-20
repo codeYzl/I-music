@@ -1,0 +1,23 @@
+<video class="video"
+ src="{{mvUrl}}" 
+ autoplay="true"
+>
+</video>
+
+<scroll-view class="content" scroll-y>
+ <view class="info">
+    <view>
+      {{mvInfo.artistName}}
+    </view>
+  </view>
+  <view class="related-video">
+  <block wx:for="{{mvrelate}}">
+  <view>
+    <image src="{{item.coverUrl}}" mode="widthFix">
+      
+    </image>
+    <view>{{item.title}}</view>
+  </view>
+  </block>
+  </view>
+</scroll-view>

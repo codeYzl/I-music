@@ -1,0 +1,11 @@
+<image class="bg-image" mode="aspectFill" src="{{currentSong.al.picUrl}}"></image>
+<view class="bg-cover"></view>
+
+<!-- 自定义导航 -->
+<view class="status-bar" style="height: {{statusHeight}}px"></view>
+<view class="nav">
+    <view class="left">返回</view>
+    <view class="center">歌曲播放</view>
+    <view class="right"> </view>
+
+</view>
