@@ -1,5 +1,7 @@
 {
 
  "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+      "nav-bar" : "/components/nav-bar/nar-bar"
+  }
 }

@@ -1,11 +1,39 @@
 <image class="bg-image" mode="aspectFill" src="{{currentSong.al.picUrl}}"></image>
-<view class="bg-cover"></view>
+<view class="bg-cover" ></view>
 
 <!-- 自定义导航 -->
-<view class="status-bar" style="height: {{statusHeight}}px"></view>
-<view class="nav">
-    <view class="left">返回</view>
-    <view class="center">歌曲播放</view>
-    <view class="right"> </view>
 
-</view>
+<nav-bar>
+    <view class="tabs" slot="center">
+        <view class="item {{currentPage === 0 ? 'active' : ''}}" bindtap="onSwichNav" data-index="{{0}}">歌曲 </view>
+        <view class="divers">|</view>
+        <view class="item {{currentPage === 1 ? 'active' : ''}}" bindtap="onSwichNav" data-index="{{1}}"> 歌词</view>
+    </view>
+</nav-bar>
+<swiper 
+    style="height: {{contentHeight}}px;"
+    bindchange="onSwiperChange"
+    current="{{currentPage}}"
+>
+    <swiper-item class="music">
+        <view class="album">
+            <image  class="image" src="{{currentSong.al.picUrl}}" mode="widthFix"></image>
+        </view>
+        <view class="info">
+            一句歌词
+        </view>
+        <view class="lyric">
+            一句歌词
+        </view>
+        <view class="process">
+            歌曲进度和时长
+        </view>
+        <view class="control">
+
+            进度条
+        </view>
+    </swiper-item>
+    <swiper-item >
+        歌词
+    </swiper-item>
+</swiper> 
