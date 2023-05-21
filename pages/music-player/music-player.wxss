@@ -45,3 +45,51 @@
 .music .album .image{
     width: 100%;
 }
+.music .info .name{
+    font-size: 48rpx;
+    font-weight: 700;
+}
+.music .info .singer{
+    margin-top: 10rpx;
+
+}
+.music .process {
+    margin: 12rpx 0;
+}
+.music .lyric{
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 12rpx 0;
+}
+.music .process .time{
+    display: flex;
+    justify-content: space-between;
+    font-size: 24rpx;
+}
+.music .slider{
+    margin: 16rpx 8rpx 10rpx 18rpx;
+}
+.music .control{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.music .control .btn{
+    width: 60rpx;
+    height: 60rpx;
+}
+
+.music .control .btn.mode{
+    width: 80rpx;
+    height: 100rpx;
+}
+.music .control .btn.musiclist{
+    width: 80rpx;
+    height: 80rpx;
+}
+.music .control .btn.play{
+    width: 140rpx;
+    height: 140rpx;
+}

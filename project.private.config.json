@@ -57,6 +57,13 @@
           "query": "id=1403318151",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "pact",
+          "pathName": "pages/music-player/music-player",
+          "query": "id=2048370921",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

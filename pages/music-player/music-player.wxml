@@ -1,3 +1,5 @@
+
+<wxs module="format" src="/utils/format.wxs"></wxs>
 <image class="bg-image" mode="aspectFill" src="{{currentSong.al.picUrl}}"></image>
 <view class="bg-cover" ></view>
 
@@ -20,17 +22,25 @@
             <image  class="image" src="{{currentSong.al.picUrl}}" mode="widthFix"></image>
         </view>
         <view class="info">
-            一句歌词
+            <view class="name">{{currentSong.name}}</view>
+            <view class="singer">{{currentSong.ar[0].name}} </view>
         </view>
         <view class="lyric">
             一句歌词
         </view>
         <view class="process">
-            歌曲进度和时长
+            <slider class= "slider" block-size="12" value="{{sliderValue}}"/>
+            <view class="time">
+                <view class="current">{{format.formatTime(currentTime)}}</view>
+                <view class="duration">{{format.formatTime(durationTime)}}</view>
+            </view>
         </view>
         <view class="control">
-
-            进度条
+            <image class="btn mode" src="/assets/player/play_order.png"></image>
+            <image class="btn last" src="/assets/player/play_prev.png"></image>
+            <image class="btn play" src="/assets/player/play_pause.png"></image>
+            <image class="btn next" src="/assets/player/play_next.png"></image>
+            <image class="btn musiclist" src="/assets/player/play_music.png"></image>
         </view>
     </swiper-item>
     <swiper-item >
