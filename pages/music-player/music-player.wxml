@@ -6,7 +6,7 @@
 <!-- 自定义导航 -->
 
 <nav-bar>
-    <view class="tabs" slot="center">
+    <view class="tabs" slot="center" style="height: {{statusBarHeight}}px;">
         <view class="item {{currentPage === 0 ? 'active' : ''}}" bindtap="onSwichNav" data-index="{{0}}">歌曲 </view>
         <view class="divers">|</view>
         <view class="item {{currentPage === 1 ? 'active' : ''}}" bindtap="onSwichNav" data-index="{{1}}"> 歌词</view>
@@ -26,10 +26,10 @@
             <view class="singer">{{currentSong.ar[0].name}} </view>
         </view>
         <view class="lyric">
-            一句歌词
+            {{currentLyricText}}
         </view>
         <view class="process">
-            <slider class= "slider" block-size="12" value="{{sliderValue}}"/>
+            <slider class= "slider" block-size="12" value="{{sliderValue}}" bindchange="onSliderChange"/>
             <view class="time">
                 <view class="current">{{format.formatTime(currentTime)}}</view>
                 <view class="duration">{{format.formatTime(durationTime)}}</view>
@@ -38,12 +38,25 @@
         <view class="control">
             <image class="btn mode" src="/assets/player/play_order.png"></image>
             <image class="btn last" src="/assets/player/play_prev.png"></image>
-            <image class="btn play" src="/assets/player/play_pause.png"></image>
+            <image class="btn play" 
+                src="/assets/player/play_{{isplay? 'pause': 'resume'}}.png" 
+                bindtap="onPause"
+            ></image>
             <image class="btn next" src="/assets/player/play_next.png"></image>
             <image class="btn musiclist" src="/assets/player/play_music.png"></image>
         </view>
     </swiper-item>
     <swiper-item >
-        歌词
+        <scroll-view 
+            class="lyric-list" 
+            scroll-y
+            scroll-top="{{lyricScrollTop}}"
+            scroll-with-animation="true"
+            
+        >
+            <block wx:for="{{lyricInfos}}" wx:key="time" class="item" style="padding-bottom: {{index===lyricInfos.length - 1 ? 100 : 0}}px;">
+                <view  class="item {{currentIndex ===  index ? 'active' : ''}}" >{{item.text}}</view>
+            </block>
+        </scroll-view>
     </swiper-item>
 </swiper> 

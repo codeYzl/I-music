@@ -1,5 +1,5 @@
 .status-bar{
-    height: 40px;
+    height: 40 px;
 }
 
 .nav{
