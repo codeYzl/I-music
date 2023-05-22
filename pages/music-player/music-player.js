@@ -3,6 +3,7 @@ import { getsongMenuTag } from "../../services/music"
 import {getSongDetail,getSongLyric} from "../../services/player"
 import {parseLyric} from "../../utils/parse-lyric"
 import playerStore from "../../store/playerStore"
+
 // import {throttle} from 'underscore'
 const audio = wx.createInnerAudioContext()
 const app = getApp()
@@ -22,10 +23,10 @@ Page({
     currentIndex: 0 ,
     lyricScrollTop: 0,
     playSongIndex: 0,
-    playSongList: []
+    playSongList: [],
+    firstPlay: true
   },
   onLoad(options) {
-
         const id = options.id
         this.setupPlaySong(id)
         //计算屏幕高度
@@ -54,34 +55,41 @@ Page({
             this.setData({lyricInfos})
         })
          //播放当前歌曲
-         audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-         audio.autoplay = true
-         
-         //监听播放进度条
-         audio.onTimeUpdate(()=>{   
-             // 记录当前时间
-             this.setData({currentTime: audio.currentTime *1000})
-             const sliderValue = this.data.currentTime / this.data.durationTime*100 //进度条计算
-             this.setData({sliderValue: sliderValue})
-             if(!this.data.lyricInfos.length) return
-             let index = this.data.lyricInfos.length - 1;          
-             for(let i = 0;i < this.data.lyricInfos.length;i++){
-                 const info = this.data.lyricInfos[i]
-                 if(info.time > audio.currentTime * 1000){
-                     index = i - 1
-                     break;
-                 }
-             }
-             if(index === this.data.currentIndex) return
-             const currentLyricText = this.data.lyricInfos[index].text
-             this.setData({currentLyricText,currentIndex: index,lyricScrollTop: 35 * index})
-             audio.onWaiting(()=>{
-                 audio.pause()
-             })
-             audio.onCanplay(()=>{
-                 audio.play()
-             })
-         })
+        audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+        audio.autoplay = true
+        if(this.data.firstPlay){
+            this.data.firstPlay = false
+            //监听播放进度条
+            audio.onTimeUpdate(()=>{   
+                // 记录当前时间
+                this.setData({currentTime: audio.currentTime *1000})
+                const sliderValue = this.data.currentTime / this.data.durationTime*100 //进度条计算
+                this.setData({sliderValue: sliderValue})
+                if(!this.data.lyricInfos.length) return
+                let index = this.data.lyricInfos.length - 1;          
+                for(let i = 0;i < this.data.lyricInfos.length;i++){
+                    const info = this.data.lyricInfos[i]
+                    if(info.time > audio.currentTime * 1000){
+                        index = i - 1
+                        break;
+                    }
+                }
+                if(index === this.data.currentIndex) return
+                const currentLyricText = this.data.lyricInfos[index].text
+                this.setData({currentLyricText,currentIndex: index,lyricScrollTop: 35 * index})
+                audio.onWaiting(()=>{
+                    audio.pause()
+                })
+                audio.onCanplay(()=>{
+                    audio.play()
+                })
+            }),
+            //监听播放结束 自动播放下一首
+            audio.onEnded(()=>{
+                this.onNextTap()
+            })
+            
+        } 
     },
     onSwiperChange(event){
         this.setData({currentPage: event.detail.current})
@@ -126,19 +134,20 @@ Page({
         const length = this.data.playSongList.length
         index = (index + 1) % length 
         const nextSong = this.data.playSongList[index]
+        this.setData({currentSong: {},sliderValue:0,currentTime: 0,durationTime: 0})
+        console.log(index);
         this.setupPlaySong(nextSong.id)
         playerStore.setState("playSongIndex",index)
     },
     //======================== store共享数据获取========================
-
-   getSongPlayList({playSongList,playSongIndex}){
+    getSongPlayList({playSongList,playSongIndex}){
      if(playSongList){
          this.setData({playSongList})
      }
      if(playSongIndex !== undefined){
          this.setData({playSongIndex})
      }
-   },
+    },
    onUnload(){
        playerStore.offStates(["playSongList","playSongIndex"],this.getSongPlayList)
    }
