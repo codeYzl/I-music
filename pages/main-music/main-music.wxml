@@ -28,7 +28,7 @@
 />
 <view class="recommend-list">
   <block wx:for="{{ recommendSongs}}" wx:key="id"> 
-    <song-item itemData="{{item}}" />
+    <song-item itemData="{{item}}" data-index="{{index}}" bindtap="onSongItemTap"  />
   </block>
 </view>
 </view>

@@ -1,6 +1,7 @@
 import rankingStore from "../../store/rankingStore"
 import recommendStore from "../../store/recommendStore"
 import {getPlayListdetail} from '../../services/music'
+import playerStore from "../../store/playerStore"
 Page({
   data:{
     type:"ranking",
@@ -45,6 +46,9 @@ Page({
           fail: (res) => {},
           complete: (res) => {},
         })
+    },
+    onSongItemTap(){
+        playerStore.setState("playSongList",this.data.songInfos.tracks)
     },
     onUnload(){
         if(this.data.type === "ranking"){

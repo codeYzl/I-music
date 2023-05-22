@@ -2,6 +2,7 @@ import {getMusicbanner,getSongMenuList} from "../../services/music"
 import {getPlayListdetail} from "../../services/music"
 import recommendStore from "../../store/recommendStore"
 import rankStore from "../../store/rankingStore"
+import playerStore from "../../store/playerStore"
 Page({
   data:{
     searchValue:"",
@@ -48,6 +49,13 @@ Page({
       this.setData({swiperimage: res[0].height})
     })
   },
+  //获取索引和播放列表
+  onSongItemTap(event){
+      const index = event.currentTarget.dataset.index
+      playerStore.setState("playSongList",this.data.recommendSongs)
+      playerStore.setState("playSongIndex",index)
+    //  console.log(index);
+    },
   onRecommendClick(){
    wx.navigateTo({
      url: '/pages/detail-song/detail-song?type=recommend',

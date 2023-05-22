@@ -4,7 +4,7 @@ export function parseLyric(lrcString){
     const lyricInfos = []
     const lyricLines = lrcString.split("\n")
     for(const line of lyricLines){
-        const results = timeRag.exec(line)
+        const results = timeRag.exec(line) //得到匹配字符串
         if(!results) continue
         const minute = results[1] * 60 * 1000
         const second = results[2] * 1000

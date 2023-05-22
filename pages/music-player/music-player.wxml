@@ -37,12 +37,20 @@
         </view>
         <view class="control">
             <image class="btn mode" src="/assets/player/play_order.png"></image>
-            <image class="btn last" src="/assets/player/play_prev.png"></image>
+            <image  
+                class="btn last" 
+                src="/assets/player/play_prev.png"
+                bindtap="onPrevTap"
+            />
             <image class="btn play" 
                 src="/assets/player/play_{{isplay? 'pause': 'resume'}}.png" 
                 bindtap="onPause"
             ></image>
-            <image class="btn next" src="/assets/player/play_next.png"></image>
+            <image 
+                class="btn next"
+                src="/assets/player/play_next.png"
+                bindtap="onNextTap"
+            />
             <image class="btn musiclist" src="/assets/player/play_music.png"></image>
         </view>
     </swiper-item>
