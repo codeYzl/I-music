@@ -3,8 +3,6 @@ import { getsongMenuTag } from "../../services/music"
 import {getSongDetail,getSongLyric} from "../../services/player"
 import {parseLyric} from "../../utils/parse-lyric"
 import playerStore from "../../store/playerStore"
-
-// import {throttle} from 'underscore'
 const audio = wx.createInnerAudioContext()
 const app = getApp()
 Page({
@@ -24,9 +22,12 @@ Page({
     lyricScrollTop: 0,
     playSongIndex: 0,
     playSongList: [],
-    firstPlay: true
+    firstPlay: true,
+    playMode: 0,
+    ImgSrc: "play_order",
+    playMode: 0
   },
-  onLoad(options) {
+    onLoad(options) {
         const id = options.id
         this.setupPlaySong(id)
         //计算屏幕高度
@@ -57,6 +58,7 @@ Page({
          //播放当前歌曲
         audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
         audio.autoplay = true
+        //第一次加载时启动监听
         if(this.data.firstPlay){
             this.data.firstPlay = false
             //监听播放进度条
@@ -66,6 +68,8 @@ Page({
                 const sliderValue = this.data.currentTime / this.data.durationTime*100 //进度条计算
                 this.setData({sliderValue: sliderValue})
                 if(!this.data.lyricInfos.length) return
+                // 定位歌词位置
+
                 let index = this.data.lyricInfos.length - 1;          
                 for(let i = 0;i < this.data.lyricInfos.length;i++){
                     const info = this.data.lyricInfos[i]
@@ -86,14 +90,15 @@ Page({
             }),
             //监听播放结束 自动播放下一首
             audio.onEnded(()=>{
-                this.onNextTap()
+                if(this.data.playMode === 0) this.onNextTap() //顺序播放自动切换下一首
+                else if(this.data.playMode === 1)   this.onSingerPlay()// 单曲循环
+                else this.onRandomPlay()
             })
-            
         } 
     },
+    // bindchange ：轮播图滑动时
     onSwiperChange(event){
         this.setData({currentPage: event.detail.current})
-      // console.log(event);
     },
     onSwichNav(event){
        const index = event.currentTarget.dataset.index
@@ -111,6 +116,26 @@ Page({
        //设置进度条的时间
        audio.seek(currentTime /1000)
        this.setData({currentTime})
+    },
+    //切换播放模式
+    onChangePlayMode(){
+        // 0,1,2 表示顺序播放， 单曲循环， 随机播放
+        let playMode = this.data.playMode
+        let ImgSrc = ""
+        if(playMode === 0){
+            ImgSrc = "play_repeat"
+            this.setData({ImgSrc})
+           
+        }else if(playMode === 1){
+           ImgSrc = "play_random"
+            this.setData({ImgSrc})
+        }else{
+            ImgSrc = "play_order"
+            this.setData({ImgSrc})
+        }
+        playMode = (playMode  + 1)% 3
+        this.setData({playMode})
+        
     },
     onPause(){
        if(this.data.isplay){
@@ -139,6 +164,25 @@ Page({
         this.setupPlaySong(nextSong.id)
         playerStore.setState("playSongIndex",index)
     },
+    onSingerPlay(){
+        let index = this.data.playSongIndex
+        const length = this.data.playSongList.length
+        const nextSong = this.data.playSongList[index]
+        this.setData({currentSong: {},sliderValue:0,currentTime: 0,durationTime: 0})
+        console.log(index);
+        this.setupPlaySong(nextSong.id)
+        playerStore.setState("playSongIndex",index)
+    },
+    onRandomPlay(){
+        let index = this.data.playSongIndex
+        const length = this.data.playSongList.length
+        const nextSong = this.data.playSongList[index]
+        this.setData({currentSong: {},sliderValue:0,currentTime: 0,durationTime: 0})
+        console.log(index);
+        this.setupPlaySong(nextSong.id)
+    
+        playerStore.setState("playSongIndex",index)
+    },
     //======================== store共享数据获取========================
     getSongPlayList({playSongList,playSongIndex}){
      if(playSongList){
@@ -148,8 +192,7 @@ Page({
          this.setData({playSongIndex})
      }
     },
-   onUnload(){
-       playerStore.offStates(["playSongList","playSongIndex"],this.getSongPlayList)
-   }
-  
+    onUnload(){
+        playerStore.offStates(["playSongList","playSongIndex"],this.getSongPlayList)
+    }
 })

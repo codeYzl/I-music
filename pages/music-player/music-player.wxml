@@ -12,6 +12,7 @@
         <view class="item {{currentPage === 1 ? 'active' : ''}}" bindtap="onSwichNav" data-index="{{1}}"> 歌词</view>
     </view>
 </nav-bar>
+<!--歌曲歌词界面-->
 <swiper 
     style="height: {{contentHeight}}px;"
     bindchange="onSwiperChange"
@@ -36,7 +37,7 @@
             </view>
         </view>
         <view class="control">
-            <image class="btn mode" src="/assets/player/play_order.png"></image>
+            <image class="btn mode" src="/assets/player/{{ImgSrc}}.png" bindtap="onChangePlayMode"></image>
             <image  
                 class="btn last" 
                 src="/assets/player/play_prev.png"
@@ -54,15 +55,15 @@
             <image class="btn musiclist" src="/assets/player/play_music.png"></image>
         </view>
     </swiper-item>
+    /
     <swiper-item >
         <scroll-view 
             class="lyric-list" 
             scroll-y
             scroll-top="{{lyricScrollTop}}"
             scroll-with-animation="true"
-            
         >
-            <block wx:for="{{lyricInfos}}" wx:key="time" class="item" style="padding-bottom: {{index===lyricInfos.length - 1 ? 100 : 0}}px;">
+            <block wx:for="{{lyricInfos}}" wx:key="time" class="item" style="margin-bottom: {{index===lyricInfos.length - 1 ? 100 : 0}}px;">
                 <view  class="item {{currentIndex ===  index ? 'active' : ''}}" >{{item.text}}</view>
             </block>
         </scroll-view>
