@@ -11,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "iMusic",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -19,22 +19,21 @@
       {
         "pagePath": "pages/main-music/main-music",
         "text": "音乐",
-        "iconPath": "assets/tabbar/music_normal.png",
-        "selectedIconPath": "assets/tabbar/music_active.png"
+        "iconPath": "assets/images/tabbar/music_normal.png",
+        "selectedIconPath": "assets/images/tabbar/music_active.png"
       },
       {
         "pagePath": "pages/main-video/main-video",
         "text": "视频",
-        "iconPath": "assets/tabbar/video_normal.png",
-        "selectedIconPath": "assets/tabbar/video_active.png"
+        "iconPath": "assets/images/tabbar/video_normal.png",
+        "selectedIconPath": "assets/images/tabbar/video_active.png"
       }
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "van-search": "miniprogram_npm/vant-weapp/search/index",
     "van-icon": "miniprogram_npm/vant-weapp/icon/index"
   },
-  "lazyCodeLoading": "requiredComponents"
+  "sitemapLocation": "sitemap.json"
 }

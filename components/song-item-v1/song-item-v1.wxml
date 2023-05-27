@@ -1,12 +1,11 @@
-<view class="item" bindtap="onSongClick">
-    <view class="index">
-        {{index}}
-    </view>
-    <view class="info">
-        <view> {{itemData.name}}</view> 
-        <view class="source"> 
-            <image class="icon" src="/assets/icons/sq_icon.png"></image>
-            <text>{{itemData.ar[0].name}}</text>
-        </view>
-    </view>
+<!--components/song-item-v1/song-item-v1.wxml-->
+<view class="song-item" bindtap="onSongItemTap">
+  <image class="image" src="{{itemData.al.picUrl}}"></image>
+  <view class="content">
+    <view class="name">{{itemData.name}}</view>
+    <view class="source">{{itemData.ar[0].name}}</view>
+  </view>
+  <view class="arrow">
+    <van-icon name="arrow" color="#999" size="16px" />
+  </view>
 </view>

@@ -1,92 +1,142 @@
-import {getMusicbanner,getSongMenuList} from "../../services/music"
-import {getPlayListdetail} from "../../services/music"
+// pages/main-music/main-music.js
+import { getMusicBanner, getSongMenuList } from "../../services/music"
 import recommendStore from "../../store/recommendStore"
-import rankStore from "../../store/rankingStore"
+import rankingStore, { rankingsMap } from "../../store/rankingStore"
 import playerStore from "../../store/playerStore"
-Page({
-  data:{
-    searchValue:"",
-    banners:[],
-    swiperimage: 130,
-    recommendSongs: [],
-    //歌单数据
-    hotmenuList:[],
-    recommendMenu:[],
-    //巅峰榜数据
-    rankingInfos:{
+import querySelect from "../../utils/query-select"
+import { throttle } from 'underscore'
 
+const querySelectThrottle = throttle(querySelect, 100)
+const app = getApp()
+
+Page({
+  data: {
+    searchValue: "",
+    banners: [],
+    bannerHeight: 0,
+    screenWidth: 375,
+
+    recommendSongs: [],
+
+    // 歌单数据
+    hotMenuList: [],
+    recMenuList: [],
+    // 巅峰榜数据
+    isRankingData: false,
+    rankingInfos: {},
+
+    // 当前正在播放的歌曲信息
+    currentSong: {},
+    isPlaying: false
+  },
+
+  onLoad() {
+    this.fetchMusicBanner()
+    // this.fetchRecommendSongs()
+    this.fetchSongMenuList()
+
+    // 发起action
+    recommendStore.onState("recommendSongInfo", this.handleRecommendSongs)
+    recommendStore.dispatch("fetchRecommendSongsAction")
+    rankingStore.onState("newRanking", this.handleNewRanking)
+    rankingStore.onState("originRanking", this.handleOriginRanking)
+    rankingStore.onState("upRanking", this.handleUpRanking)
+    rankingStore.dispatch("fetchRankingDataAction")
+
+    playerStore.onStates(["currentSong", "isPlaying"], this.handlePlayInfos)
+
+    // 获取屏幕的尺寸
+    this.setData({ screenWidth: app.globalData.screenWidth })
+  },
+
+  // 网络请求的方法封装
+  async fetchMusicBanner() {
+    const res = await getMusicBanner()
+    this.setData({ banners: res.banners })
+  },
+  async fetchSongMenuList() {
+    getSongMenuList().then(res => {
+      this.setData({ hotMenuList: res.playlists })
+    })
+    getSongMenuList("华语").then(res => {
+      this.setData({ recMenuList: res.playlists })
+    })
+  },
+
+  // 界面的事件监听方法
+  onSearchClick() {
+    wx.navigateTo({url: '/pages/detail-search/detail-search'})
+  },
+  onBannerImageLoad(event) {
+    querySelectThrottle(".banner-image").then(res => {
+      this.setData({ bannerHeight: res[0].height })
+    })
+  },
+  onRecommendMoreClick() {
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song?type=recommend',
+    })
+  },
+  onSongItemTap(event) {
+    const index = event.currentTarget.dataset.index
+    playerStore.setState("playSongList", this.data.recommendSongs)
+    playerStore.setState("playSongIndex", index)
+  },
+
+  onPlayOrPauseBtnTap() {
+    playerStore.dispatch("changeMusicStatusAction")
+  },
+
+  onPlayBarAlbumTap() {
+    wx.navigateTo({
+      url: '/pages/music-player/music-player',
+    })
+  },
+
+
+  // ====================== 从Store中获取数据 ======================
+  handleRecommendSongs(value) {
+    if (!value.tracks) return
+    this.setData({ recommendSongs: value.tracks.slice(0, 6) })
+  },
+
+  handleNewRanking(value) {
+    // console.log("新歌榜:", value);
+    if (!value.name) return
+    this.setData({ isRankingData: true })
+    const newRankingInfos = { ...this.data.rankingInfos, newRanking: value }
+    this.setData({ rankingInfos: newRankingInfos })
+  },
+  handleOriginRanking(value) {
+    // console.log("原创榜:", value);
+    if (!value.name) return
+    this.setData({ isRankingData: true })
+    const newRankingInfos = { ...this.data.rankingInfos, originRanking: value }
+    this.setData({ rankingInfos: newRankingInfos })
+  },
+  handleUpRanking(value) {
+    // console.log("飙升榜:", value);
+    if (!value.name) return
+    this.setData({ isRankingData: true })
+    const newRankingInfos = { ...this.data.rankingInfos, upRanking: value }
+    this.setData({ rankingInfos: newRankingInfos })
+  },
+
+  handlePlayInfos({ currentSong, isPlaying }) {
+    if (currentSong) {
+      this.setData({ currentSong })
+    }
+    if (isPlaying !== undefined) {
+      this.setData({ isPlaying })
     }
   },
-  //界面的事件监听
-  onclickSearch(){
-    wx.navigateTo({
-      url: '/pages/detail-search/detail-search',
-    })
-  },
-  onLoad(){
-    this.fetchbanner()
-    this.fetchSongMenuList()
-    //发起action
-    recommendStore.onState("recommendSongs",this.handleRecommendSongs)
-    recommendStore.dispatch("fetchRecommendSongs",this.handleNewRanking)
-    rankStore.onState("newRanking",this.handleNewRanking)
-    rankStore.onState("originRanking",this.handleOriginRanking)
-    rankStore.onState("upRanking",this.handleUpRanking)
-    rankStore.dispatch("getRankingData")
-  },
-  async fetchbanner(){
-       const res = await getMusicbanner()
-       this.setData({
-         banners: res.banners
-       })
-  },
-  onimageload(){
-    //获取组件中的支持的图片高度
-    const query = wx.createSelectorQuery();
-    //拿到矩形框
-    query.select(".banner-image").boundingClientRect
-    query.exec((res)=>{
-      this.setData({swiperimage: res[0].height})
-    })
-  },
-  //获取索引和播放列表
-  onSongItemTap(event){
-      const index = event.currentTarget.dataset.index
-      playerStore.setState("playSongList",this.data.recommendSongs)
-      playerStore.setState("playSongIndex",index)
-    //  console.log(index);
-    },
-  onRecommendClick(){
-   wx.navigateTo({
-     url: '/pages/detail-song/detail-song?type=recommend',
-   })
-  },
-  async fetchSongMenuList(){
-     getSongMenuList().then(res=>{
-        this.setData({hotmenuList: res.playlists})
-     })
-     getSongMenuList("华语").then(res=>{
-       this.setData({recommendMenu:res.playlists})
-     })
-  },
-  //从store中获取数据
-  handleRecommendSongs(value){
-    if(!value.tracks) return
-      this.setData({recommendSongs : value.tracks.slice(0,6)})
-  },
-  handleNewRanking(value){
-    const newRankingInfos = {...this.data.rankingInfos,newRanking:value}
-    this.setData({rankingInfos:newRankingInfos})
-  },
-  handleOriginRanking(value){
-    const newRankingInfos = {...this.data.rankingInfos,originRanking:value}
-    this.setData({rankingInfos:newRankingInfos})
-  },
-  handleUpRanking(value){
-    const newRankingInfos = {...this.data.rankingInfos,upRanking:value}
-    this.setData({rankingInfos:newRankingInfos})
-  },
-  onunload(){
-    recommendStore.offState("recommendSongs",this.handleRecommendSongs)
+
+  onUnload() {
+    recommendStore.offState("recommendSongs", this.handleRecommendSongs)
+    rankingStore.offState("newRanking", this.handleNewRanking)
+    rankingStore.offState("originRanking", this.handleOriginRanking)
+    rankingStore.offState("upRanking", this.handleUpRanking)
+    
+    playerStore.offStates(["currentSong", "isPlaying"], this.handlePlayInfos)
   }
 })

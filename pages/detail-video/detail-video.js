@@ -1,29 +1,39 @@
 // pages/detail-video/detail-video.js
-import {getMvURL,getMvInfo, getMvRelate} from "../../services/video"
+import { getMVUrl, getMVInfo, getMVRelated } from "../../services/video"
+
 Page({
-  data:{
-    id:0,
+  data: {
+    id: 0,
     mvUrl: "",
     mvInfo: {},
-    mvrelate: {}
+    relatedVideo: [],
+    danmuList: [
+      { text: "哈哈哈, 真好听", color: "#ff0000", time: 3 },
+      { text: "呵呵呵, 不错哦", color: "#ffff00", time: 10 },
+      { text: "嘿嘿嘿, 好喜欢", color: "#0000ff", time: 15 },
+    ]
   },
-  onLoad(options){
+  onLoad(options) {
+    // 1.获取id
     const id = options.id
-    this.setData({id})
-    this.fectchMVurl()
-    this.fetchMvInfo()
-    this.fetchMvRelate()
+    this.setData({ id })
+
+    // 2.请求数据
+    this.fetchMVUrl()
+    this.fetchMVInfo()
+    this.fetchMVRelated()
   },
-  async fectchMVurl(){
-    const res = await getMvURL(this.data.id)
-    this.setData({mvUrl: res.data.url})
+
+  async fetchMVUrl() {
+    const res = await getMVUrl(this.data.id)
+    this.setData({ mvUrl: res.data.url })
   },
-  async fetchMvInfo(){
-    const res = await getMvInfo(this.data.id)
-   this.setData({mvInfo: res.data})
+  async fetchMVInfo() {
+    const res = await getMVInfo(this.data.id)
+    this.setData({ mvInfo: res.data })
   },
-  async fetchMvRelate(){
-    const res = await getMvRelate(this.data.id)
-    this.setData({mvrelate: res.data})
+  async fetchMVRelated() {
+    const res = await getMVRelated(this.data.id)
+    this.setData({ relatedVideo: res.data })
   }
 })
