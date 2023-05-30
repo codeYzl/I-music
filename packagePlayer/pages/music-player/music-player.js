@@ -1,14 +1,11 @@
 // pages/music-player/music-player.js
-import playerStore, { audioContext } from "../../store/playerStore"
+import playerStore, { audioContext } from "../../../store/playerStore"
 import { throttle } from 'underscore'
-
 const app = getApp()
 const modeNames = ["order", "repeat", "random"]
-
 Page({
   data: {
     stateKeys: ["id", "currentSong", "durationTime", "currentTime", "lyricInfos", "currentLyricText", "currentLyricIndex", "isPlaying", "playModeIndex"],
-
     id: 0,
     currentSong: {},
     currentTime: 0,
@@ -46,6 +43,7 @@ Page({
 
     // 2.根据id播放歌曲
     if (id) {
+    
       playerStore.dispatch("playMusicWithSongIdAction", id)
     }
 

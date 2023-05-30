@@ -1,7 +1,7 @@
-import { hyRequest } from "./index"
+import { yzlRequest } from "./index"
 
 export function getSongDetail(ids) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/song/detail",
     data: {
       ids
@@ -10,7 +10,7 @@ export function getSongDetail(ids) {
 }
 
 export function getSongLyric(id) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/lyric",
     data: {
       id

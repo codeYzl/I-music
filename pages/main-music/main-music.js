@@ -62,7 +62,12 @@ Page({
       this.setData({ recMenuList: res.playlists })
     })
   },
-
+  onSearchClick(){
+    //console.log("yes");
+    wx.navigateTo({
+      url: '/pages/detail-search/detail-search',
+    })
+  },
   // 界面的事件监听方法
   onSearchClick() {
     wx.navigateTo({url: '/pages/detail-search/detail-search'})
@@ -89,7 +94,7 @@ Page({
 
   onPlayBarAlbumTap() {
     wx.navigateTo({
-      url: '/pages/music-player/music-player',
+      url: '../../packagePlayer/pages/music-player/music-player',
     })
   },
 

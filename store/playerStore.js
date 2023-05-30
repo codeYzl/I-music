@@ -27,7 +27,7 @@ const playerStore = new HYEventStore({
     playMusicWithSongIdAction(ctx, id) {
       // 0.原来的数据重置
       ctx.currentSong = {}
-      ctx.durationTime = 0
+      ctx.currentTime = 0
       ctx.durationTime = 0
       ctx.currentLyricIndex = 0
       ctx.currentLyricText = ""
@@ -52,7 +52,7 @@ const playerStore = new HYEventStore({
       })
 
       // 3.播放当前的歌曲
-      audioContext.stop()
+    //   audioContext.stop()
       audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
       audioContext.autoplay = true
 

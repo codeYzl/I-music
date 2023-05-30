@@ -13,12 +13,20 @@
     <view>{{ mvInfo.artistName }}</view>
   </view>
 
-  <view class="related-video">
+  <!-- <view class="related-video">
     <block wx:for="{{relatedVideo}}" wx:key="vid">
       <view class="item">
         <image src="{{item.coverUrl}}" mode="widthFix"></image>
         <view>{{item.title}}</view>
       </view>
     </block>
+  </view> -->
+  <view class="recommend">
+  <view class="title">推荐视频</view>
+  <view class="video-list">
+    <block wx:for="{{relatedMV}}" wx:key="vid">
+      <video-list-item2 itemInfo="{{item}}"></video-list-item2>
+    </block>
   </view>
+</view>
 </scroll-view>

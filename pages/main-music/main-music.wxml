@@ -5,7 +5,7 @@
   shape="round"
   background="#fafafa"
   placeholder="请输入搜索关键词"
-  bind:click-input="onSearchClick"
+  bind:focus="onSearchClick"
 />
 
 <!-- 2.轮播图的展示 -->
@@ -72,7 +72,7 @@
 <!-- 6.播放工具栏 -->
 <view class="play-bar-placeholder" wx:if="{{currentSong.name || isPlaying}}"></view>
 <view class="play-bar" wx:if="{{currentSong.name || isPlaying}}">
-  <view class="left">
+  <view class="left"  bindtap="onPlayBarAlbumTap">
     <image 
       class="album album-anim" 
       src="{{currentSong.al.picUrl}}"

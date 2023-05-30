@@ -1,7 +1,6 @@
 {
   "navigationBarBackgroundColor": "#fafafa",
   "usingComponents": {
-    
     "area-header": "/components/area-header/area-header",
     "song-item-v1": "/components/song-item-v1/song-item-v1",
     "menu-item": "/components/menu-item/menu-item",

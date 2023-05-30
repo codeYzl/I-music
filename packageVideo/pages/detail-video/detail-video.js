@@ -1,5 +1,5 @@
 // pages/detail-video/detail-video.js
-import { getMVUrl, getMVInfo, getMVRelated } from "../../services/video"
+import { getMVUrl, getMVInfo, getMVRelated } from "../../../services/video"
 
 Page({
   data: {
@@ -8,9 +8,7 @@ Page({
     mvInfo: {},
     relatedVideo: [],
     danmuList: [
-      { text: "哈哈哈, 真好听", color: "#ff0000", time: 3 },
-      { text: "呵呵呵, 不错哦", color: "#ffff00", time: 10 },
-      { text: "嘿嘿嘿, 好喜欢", color: "#0000ff", time: 15 },
+      
     ]
   },
   onLoad(options) {

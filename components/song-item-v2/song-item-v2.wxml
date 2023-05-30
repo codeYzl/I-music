@@ -5,7 +5,8 @@
     <view>{{itemData.name}}</view>
     <view class="source">
       <image class="icon" src="/assets/images/icons/sq_icon.png"></image>
-      <text>{{itemData.ar[0].name}}</text>
+      <text>{{itemData.ar[0].name===undefined ? itemData.artists[0].name: itemData.ar[0].name}}</text>
     </view>
   </view>
+  <van-icon class="option" name="more-o" catchtap="onOptionTap"/>
 </view>

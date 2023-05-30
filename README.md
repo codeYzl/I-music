@@ -10,32 +10,222 @@
 
 ###  文件树结构
 
-+---assets    -------------------------------静态资源
-|   +---icons -------图标
-|   +---music ------ 音乐图片
-|   +---player 
-|   \---tabbar
-+---components ----------------------------组件
-|   +---menu-area 
-|   +---menu-item
-|   +---ranking-item --------排名组件
-|   +---section-header
-|   +---song-item 
-|   \---video-item --------MV组件
-+---miniprogram_npm ------------------npm依赖
-+---node_modules---------------npm模块
-+---pages-----------------------------------页面
-|   +---detail-menu  ------ 音乐详情页
-|   +---detail-search ------ 音乐搜索页
-|   +---detail-song  -------- 音乐详情页
-|   +---detail-video -------- mv详情页
-|   +---main-music --------- 音乐首页
-|   \---main-video ------------视频首页
-+---services 封装的功能函数
-+---store -------- 共享数据库
-\---utils
-
-
+├─assets
+│  └─images
+│      ├─icons
+│      ├─music
+│      ├─player
+│      └─tabbar
+├─components
+│  ├─area-header
+│  ├─menu-area
+│  ├─menu-header
+│  ├─menu-item
+│  ├─nav-bar
+│  ├─ranking-item
+│  ├─song-item-v1
+│  ├─song-item-v2
+│  └─video-item
+├─miniprogram_npm
+│  ├─hy-event-store
+│  ├─underscore
+│  └─vant-weapp
+│      ├─action-sheet
+│      ├─area
+│      ├─badge
+│      ├─badge-group
+│      ├─button
+│      ├─card
+│      ├─cell
+│      ├─cell-group
+│      ├─checkbox
+│      ├─checkbox-group
+│      ├─col
+│      ├─collapse
+│      ├─collapse-item
+│      ├─common
+│      │  └─style
+│      │      └─mixins
+│      ├─datetime-picker
+│      ├─definitions
+│      ├─dialog
+│      ├─field
+│      ├─goods-action
+│      ├─goods-action-button
+│      ├─goods-action-icon
+│      ├─icon
+│      ├─info
+│      ├─loading
+│      ├─mixins
+│      │  └─observer
+│      ├─nav-bar
+│      ├─notice-bar
+│      ├─notify
+│      ├─overlay
+│      ├─panel
+│      ├─picker
+│      ├─picker-column
+│      ├─popup
+│      ├─progress
+│      ├─radio
+│      ├─radio-group
+│      ├─rate
+│      ├─row
+│      ├─search
+│      ├─slider
+│      ├─stepper
+│      ├─steps
+│      ├─submit-bar
+│      ├─swipe-cell
+│      ├─switch
+│      ├─switch-cell
+│      ├─tab
+│      ├─tabbar
+│      ├─tabbar-item
+│      ├─tabs
+│      ├─tag
+│      ├─toast
+│      ├─transition
+│      ├─tree-select
+│      └─wxs
+├─node_modules
+│  ├─hy-event-store
+│  │  ├─src
+│  │  └─Test
+│  ├─underscore
+│  │  ├─amd
+│  │  ├─cjs
+│  │  └─modules
+│  └─vant-weapp
+│      ├─dist
+│      │  ├─action-sheet
+│      │  ├─area
+│      │  ├─badge
+│      │  ├─badge-group
+│      │  ├─button
+│      │  ├─card
+│      │  ├─cell
+│      │  ├─cell-group
+│      │  ├─checkbox
+│      │  ├─checkbox-group
+│      │  ├─col
+│      │  ├─collapse
+│      │  ├─collapse-item
+│      │  ├─common
+│      │  │  └─style
+│      │  │      └─mixins
+│      │  ├─datetime-picker
+│      │  ├─definitions
+│      │  ├─dialog
+│      │  ├─field
+│      │  ├─goods-action
+│      │  ├─goods-action-button
+│      │  ├─goods-action-icon
+│      │  ├─icon
+│      │  ├─info
+│      │  ├─loading
+│      │  ├─mixins
+│      │  │  └─observer
+│      │  ├─nav-bar
+│      │  ├─notice-bar
+│      │  ├─notify
+│      │  ├─overlay
+│      │  ├─panel
+│      │  ├─picker
+│      │  ├─picker-column
+│      │  ├─popup
+│      │  ├─progress
+│      │  ├─radio
+│      │  ├─radio-group
+│      │  ├─rate
+│      │  ├─row
+│      │  ├─search
+│      │  ├─slider
+│      │  ├─stepper
+│      │  ├─steps
+│      │  ├─submit-bar
+│      │  ├─swipe-cell
+│      │  ├─switch
+│      │  ├─switch-cell
+│      │  ├─tab
+│      │  ├─tabbar
+│      │  ├─tabbar-item
+│      │  ├─tabs
+│      │  ├─tag
+│      │  ├─toast
+│      │  ├─transition
+│      │  ├─tree-select
+│      │  └─wxs
+│      └─lib
+│          ├─action-sheet
+│          ├─area
+│          ├─badge
+│          ├─badge-group
+│          ├─button
+│          ├─card
+│          ├─cell
+│          ├─cell-group
+│          ├─checkbox
+│          ├─checkbox-group
+│          ├─col
+│          ├─collapse
+│          ├─collapse-item
+│          ├─common
+│          │  └─style
+│          │      └─mixins
+│          ├─datetime-picker
+│          ├─definitions
+│          ├─dialog
+│          ├─field
+│          ├─goods-action
+│          ├─goods-action-button
+│          ├─goods-action-icon
+│          ├─icon
+│          ├─info
+│          ├─loading
+│          ├─mixins
+│          │  └─observer
+│          ├─nav-bar
+│          ├─notice-bar
+│          ├─notify
+│          ├─overlay
+│          ├─panel
+│          ├─picker
+│          ├─picker-column
+│          ├─popup
+│          ├─progress
+│          ├─radio
+│          ├─radio-group
+│          ├─rate
+│          ├─row
+│          ├─search
+│          ├─slider
+│          ├─stepper
+│          ├─steps
+│          ├─submit-bar
+│          ├─swipe-cell
+│          ├─switch
+│          ├─switch-cell
+│          ├─tab
+│          ├─tabbar
+│          ├─tabbar-item
+│          ├─tabs
+│          ├─tag
+│          ├─toast
+│          ├─transition
+│          ├─tree-select
+│          └─wxs
+├─pages
+│  ├─detail-menu
+│  ├─detail-search
+│  ├─detail-song
+│  ├─detail-video
+│  ├─main-music
+│  ├─main-video
+│  └─music-player
+├─services
+├─store
+└─utils
 
 ## 页面
 

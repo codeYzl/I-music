@@ -53,9 +53,9 @@ Page({
 
   // =================  界面事件监听的方法 =================  
   onVideoItemTap(event) {
-    // const item = event.currentTarget.dataset.item
-    // wx.navigateTo({
-    //   url: `/pages/detail-video/detail-video?id=${item.id}`,
-    // })
+    const item = event.currentTarget.dataset.item
+    wx.navigateTo({
+      url: `../../packageVideo/pages/detail-video/detail-video?id=${item.id}`,
+    })
   }
 })

@@ -1,8 +1,8 @@
-import { hyRequest } from "./index"
+import { yzlRequest } from "./index"
 
 
 export function getMusicBanner(type = 0) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/banner",
     data: {
       type
@@ -11,7 +11,7 @@ export function getMusicBanner(type = 0) {
 }
 
 export function getPlaylistDetail(id) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/playlist/detail",
     data: {
       id
@@ -20,7 +20,7 @@ export function getPlaylistDetail(id) {
 }
 
 export function getSongMenuList(cat = "全部", limit = 6, offset = 0) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/top/playlist",
     data: {
       cat,
@@ -31,7 +31,7 @@ export function getSongMenuList(cat = "全部", limit = 6, offset = 0) {
 }
 
 export function getSongMenuTag() {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/playlist/hot"
   })
 }

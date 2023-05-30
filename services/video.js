@@ -1,7 +1,7 @@
-import { hyRequest } from "./index"
+import { yzlRequest } from "./index"
 
 export function getTopMV(offset = 0, limit = 20) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/top/mv",
     data: {
       limit,
@@ -11,7 +11,7 @@ export function getTopMV(offset = 0, limit = 20) {
 }
 
 export function getMVUrl(id) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/mv/url",
     data: {
       id
@@ -20,7 +20,7 @@ export function getMVUrl(id) {
 }
 
 export function getMVInfo(mvid) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/mv/detail",
     data: {
       mvid
@@ -29,7 +29,7 @@ export function getMVInfo(mvid) {
 }
 
 export function getMVRelated(id) {
-  return hyRequest.get({
+  return yzlRequest.get({
     url: "/related/allvideo",
     data: {
       id

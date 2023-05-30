@@ -5,7 +5,7 @@
     "compileHotReLoad": false,
     "urlCheck": false
   },
-  "libVersion": "2.30.2",
+  "libVersion": "2.10.4",
   "condition": {
     "miniprogram": {
       "list": [
@@ -62,6 +62,34 @@
           "name": "pact",
           "pathName": "pages/music-player/music-player",
           "query": "id=2048370921",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/detail-search/detail-search",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/main-profile/main-pofile",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=ranking&key=newRanking",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=menu&id=7505456487",
           "launchMode": "default",
           "scene": null
         }

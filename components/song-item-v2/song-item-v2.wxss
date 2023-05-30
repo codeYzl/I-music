@@ -32,3 +32,8 @@
   height: 22rpx;
   margin-right: 10rpx;
 }
+.option{
+    margin-right:  10rpx;
+    color: #666;
+    font-size: 50rpx;
+}

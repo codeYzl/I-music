@@ -1,0 +1,41 @@
+/* pages/main-profile/main-pofile.wxss */
+page{
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+}
+.section{
+    padding: 20rpx;
+    background-color: #fff;
+    border-radius: 10rpx;
+}
+.userinfo{
+    align-items: center;
+    display: flex;
+}
+.userinfo .avatar{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+}
+.userinfo .nickname{
+    padding-left: 30rpx;
+}
+.tabs{
+    margin-top: 30rpx;
+    display: flex;
+    justify-content: space-around;
+}
+.tabs .item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tabs .item .icon{
+    width: 65rpx;
+    height: 60rpx;
+}
+.tabs .item .name{
+    font-size: 20rpx;
+    margin-top: 10rpx;
+}

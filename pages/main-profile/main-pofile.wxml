@@ -1,0 +1,12 @@
+<view class="section userinfo" bindtap="onUserLogin">
+    <image class="avatar"  src="{{islogin ? userInfo.avatarUrl : '/assets/images/tabbar/loading.png'}}"></image>
+    <view class="nickname">{{islogin? userInfo.nickName : '未登录'}}</view>
+</view>
+<view class="section tabs">
+    <block wx:for="{{tabs}}" wx:key="name">
+        <view class="item">
+            <image class="icon"  src="/assets/images/tabbar/{{item.type}}.png"> </image> 
+            <view class="name">{{item.name}} </view>
+        </view>
+    </block>
+</view>
